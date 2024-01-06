@@ -1,0 +1,84 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmv5sw5yqc7kb"]
+
+[ext_resource type="Script" path="res://Scripts/main.cs" id="1_yycro"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yycro")
+media = "res://extras/MEDIA.tscn"
+item_size_x = 128
+item_size_y = 190
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[node name="top" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -573.0
+offset_right = 578.0
+offset_bottom = 107.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="top"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -577.5
+offset_right = 572.5
+offset_bottom = 56.0
+grow_horizontal = 2
+
+[node name="LineEdit" type="LineEdit" parent="top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="top/HBoxContainer"]
+layout_mode = 2
+text = "Search"
+
+[node name="Buttom" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -269.0
+offset_right = 575.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Buttom"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Buttom/ScrollContainer"]
+custom_minimum_size = Vector2(1101.65, 1000)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[connection signal="pressed" from="top/HBoxContainer/Button" to="." method="OnButtonPressed"]
