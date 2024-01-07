@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd6fnnl5wxp7e"]
+
+[ext_resource type="Texture2D" uid="uid://dlvmpucnsjggs" path="res://icon.svg" id="1_cu1j1"]
+[ext_resource type="Script" path="res://Scripts/details.cs" id="1_elv55"]
+
+[node name="Details" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_elv55")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11
+anchor_top = 0.144
+anchor_right = 0.11
+anchor_bottom = 0.144
+offset_left = -116.72
+offset_top = -93.312
+offset_right = 140.28
+offset_bottom = 179.688
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_cu1j1")
+stretch_mode = 4
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.309
+anchor_top = 0.149
+anchor_right = 0.309
+anchor_bottom = 0.149
+offset_left = -139.968
+offset_top = -50.552
+offset_right = 756.032
+offset_bottom = 50.448
+theme_override_font_sizes/font_size = 51
+text = "test"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Year" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.299
+anchor_top = 0.282
+anchor_right = 0.299
+anchor_bottom = 0.282
+offset_left = -55.448
+offset_top = -7.73601
+offset_right = 57.552
+offset_bottom = 15.264
+text = "Year: 2000"
+horizontal_alignment = 1
+
+[node name="Rating" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.457
+anchor_top = 0.288
+anchor_right = 0.457
+anchor_bottom = 0.288
+offset_left = -74.464
+offset_top = -11.624
+offset_right = 75.536
+offset_bottom = 11.376
+text = "Age rating : PG"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -514.0
+offset_top = -73.975
+offset_right = 513.67
+offset_bottom = 323.782
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Synopsis" type="Label" parent="ScrollContainer"]
+custom_minimum_size = Vector2(1000, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "testtttt"
+autowrap_mode = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="Button" to="." method="OnButtonPressed"]

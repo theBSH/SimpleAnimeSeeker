@@ -44,7 +44,7 @@ public partial class main : Control
 		foreach (Med med in meds)
 		{
 			var mediainstance = (MEDIA)Media.Instantiate();
-			mediainstance.setcreds(med.id,med.is_debug,med.name,med.year,med.poster);
+			mediainstance.setcreds(med.id,med.is_debug,med.name,med.year,med.poster,med.poster_large,med.synopsis,med.agerating);
 			grid.AddChild(mediainstance);
 		}
 	}

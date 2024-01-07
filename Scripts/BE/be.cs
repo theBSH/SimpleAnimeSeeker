@@ -55,6 +55,9 @@ namespace BackEnd
                         m2.name = res_data[1].ToString();
                         m2.year = int.Parse(res_data[2].ToString());
                         m2.poster = res_data[3].ToString();
+                        m2.poster_large = res_data[4].ToString();
+                        m2.synopsis = res_data[5].ToString();
+                        m2.agerating = res_data[6].ToString();
                         m2.is_debug = false;
                         mylist.Add(m2);
                     }
@@ -71,5 +74,8 @@ namespace BackEnd
         public string name;
         public int year;
         public string poster;
+        public string poster_large;
+        public string synopsis;
+        public string agerating;
     }
 }

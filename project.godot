@@ -16,11 +16,6 @@ config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
-[display]
-
-window/stretch/mode="canvas_items"
-window/stretch/aspect="ignore"
-
 [dotnet]
 
 project/assembly_name="Project A"

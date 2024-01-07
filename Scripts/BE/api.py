@@ -28,6 +28,9 @@ def search(inp):
                temp.append('N/A')
             temp.append(datetime.strptime((anime['attributes']['createdAt']),'%Y-%m-%dT%H:%M:%S.%fZ').year)
             temp.append(anime['attributes']['posterImage']['tiny'])
+            temp.append(anime['attributes']['posterImage']['small'])
+            temp.append(anime['attributes']['synopsis'])
+            temp.append(anime['attributes']['ageRating'])
             res.append(temp)
     else:
         print(f"Error: {response.status_code}, {response.text}")
