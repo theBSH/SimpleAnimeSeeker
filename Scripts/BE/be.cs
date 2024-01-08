@@ -1,19 +1,27 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Python.Runtime;
+using System.IO;
 using Godot;
 using System.Runtime.InteropServices;
 
 namespace BackEnd 
 {
+    /// <summary>
+    /// Class for the back end
+    /// </summary>
     public class BackEnd
     {
+        /// <summary>
+        /// the function will search using the python libary
+        /// </summary>
+        /// <param name="inp"></param>
+        /// <returns></returns>
         public List<Med> Search(string inp)
         {
             string projectdir = ProjectSettings.GlobalizePath("res://Scripts/BE/");
             List<Med> mylist = new List<Med>();
             int debug_num = 0;
+            // this if block is not important and was used during testing
             if (inp == "debug")
             {
                 debug_num = 30;
@@ -27,26 +35,68 @@ namespace BackEnd
             }
             else 
             {
+                // here we need to point to the python dll in editor we can just use ProjectSettings.GlobalizePath but for release we have to put the python_dep folder manually
+                // and use OS.IO to get to it
                 if (!PythonEngine.IsInitialized)
                 {
                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                    {
-                       Runtime.PythonDLL = ProjectSettings.GlobalizePath("res://python_dep/python311.dll");
+                       if (OS.IsDebugBuild())
+                        {
+                            Runtime.PythonDLL = ProjectSettings.GlobalizePath("res://python_dep/python311.dll");
+                        }
+                        else
+                        {
+                            string executablePath = OS.GetExecutablePath();
+
+                            string projectRoot = Path.GetDirectoryName(executablePath);
+
+                            string projectd = Path.Combine(projectRoot, "python_dep");
+
+                            projectdir = projectd;
+
+                            string absolutePath = Path.Combine(projectRoot, "res://python_dep/python311.dll".Substring("res://".Length));
+
+                            absolutePath = absolutePath.Replace("/", Path.DirectorySeparatorChar.ToString());
+
+                            Runtime.PythonDLL = absolutePath;
+                        }
                     }
                     else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                     {
-                        Runtime.PythonDLL = ProjectSettings.GlobalizePath("res://python_dep/libpython3.11.so.1");
+                        if (OS.IsDebugBuild())
+                        {
+                            Runtime.PythonDLL = ProjectSettings.GlobalizePath("res://python_dep/libpython3.11.so.1");
+                        }
+                        else
+                        {
+                            string executablePath = OS.GetExecutablePath();
+
+                            string projectRoot = Path.GetDirectoryName(executablePath);
+
+                            string projectd = Path.Combine(projectRoot, "python_dep");
+
+                            projectdir = projectd;
+
+                            string absolutePath = Path.Combine(projectRoot, "res://python_dep/libpython3.11.so.1".Substring("res://".Length));
+
+                            absolutePath = absolutePath.Replace("/", Path.DirectorySeparatorChar.ToString());
+
+                            Runtime.PythonDLL = absolutePath;
+                        }
                     }
                     PythonEngine.Initialize();
                 }
                 using (Py.GIL())
                 {
+                    // will run the api.py file with the inp variable
                     dynamic sys = Py.Import("sys");
                     sys.path.append(projectdir);
                     var pythonscript = Py.Import("api");
                     var arg = new PyString(inp);
                     var result = pythonscript.InvokeMethod("search",new PyObject[] {arg});
                     PyList res_list = new PyList(result);
+                    // we make an object for every search object
                     foreach (PyObject i in res_list)
                     {
                         PyList res_data = new PyList(i);
@@ -66,7 +116,9 @@ namespace BackEnd
             return mylist;
         }
     }
-
+    /// <summary>
+    /// Base class for Media objects
+    /// </summary>
     public class Med
     {
         public int id;

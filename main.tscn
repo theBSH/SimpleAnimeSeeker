@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmv5sw5yqc7kb"]
+[gd_scene load_steps=4 format=3 uid="uid://bmv5sw5yqc7kb"]
 
 [ext_resource type="Script" path="res://Scripts/main.cs" id="1_yycro"]
+[ext_resource type="Script" path="res://Scripts/check_internet.gd" id="2_mufmm"]
+[ext_resource type="Theme" uid="uid://cs8wtj873dlq8" path="res://design/main_theme.tres" id="2_p7a1r"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -11,8 +13,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yycro")
 media = "res://extras/MEDIA.tscn"
-item_size_x = 128
-item_size_y = 190
+itemSizeX = 119
+itemSizeY = 234
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -43,9 +45,11 @@ grow_horizontal = 2
 [node name="LineEdit" type="LineEdit" parent="top/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("2_p7a1r")
 
 [node name="Button" type="Button" parent="top/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_p7a1r")
 text = "Search"
 
 [node name="Buttom" type="Control" parent="."]
@@ -73,4 +77,42 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 4
 
+[node name="PopupPanel" type="PopupPanel" parent="."]
+initial_position = 2
+size = Vector2i(595, 385)
+theme = ExtResource("2_p7a1r")
+script = ExtResource("2_mufmm")
+
+[node name="Control" type="Control" parent="PopupPanel"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PopupPanel/Control"]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "It seems like your internet has a problem, the app might not work as well"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[connection signal="noInternet" from="." to="PopupPanel" method="sh"]
 [connection signal="pressed" from="top/HBoxContainer/Button" to="." method="OnButtonPressed"]

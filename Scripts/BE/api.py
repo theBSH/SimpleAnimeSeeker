@@ -1,9 +1,10 @@
 import requests
 from datetime import datetime
+# remember if the app is a excutble this file needs to be copyed to a new python_dep folder and the dlls there as well
 
 api_endpoint = 'https://kitsu.io/api/edge/anime'
 
-
+# here we just conntact the api with the input and return nested lists
 def search(inp):
     res = []
 
