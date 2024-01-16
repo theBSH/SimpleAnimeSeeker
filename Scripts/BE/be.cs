@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Python.Runtime;
+using System;
 using System.IO;
 using Godot;
 using System.Runtime.InteropServices;
@@ -24,14 +25,7 @@ namespace BackEnd
             // this if block is not important and was used during testing
             if (inp == "debug")
             {
-                debug_num = 30;
-                for (int i = 0;i < debug_num;i++)
-                {
-                    Med m1 = new Med();
-                    m1.id = 1;
-                    m1.is_debug = true;
-                    mylist.Add(m1);
-                }
+                GD.Print("in debug!");
             }
             else 
             {
@@ -40,33 +34,29 @@ namespace BackEnd
                 if (!PythonEngine.IsInitialized)
                 {
                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                   {
-                       if (OS.IsDebugBuild())
-                        {
-                            Runtime.PythonDLL = ProjectSettings.GlobalizePath("res://python_dep/python311.dll");
-                        }
-                        else
-                        {
-                            string executablePath = OS.GetExecutablePath();
+                    {
+                        string executablePath = OS.GetExecutablePath();
 
-                            string projectRoot = Path.GetDirectoryName(executablePath);
+                        string projectRoot = Path.GetDirectoryName(executablePath);
 
-                            string projectd = Path.Combine(projectRoot, "python_dep");
+                        string projectd = Path.Combine(projectRoot, "python_dep");
 
-                            projectdir = projectd;
+                        projectdir = projectd;
 
-                            string absolutePath = Path.Combine(projectRoot, "res://python_dep/python311.dll".Substring("res://".Length));
+                        string absolutePath = Path.Combine(projectRoot, "res://python_dep/python311.dll".Substring("res://".Length));
 
-                            absolutePath = absolutePath.Replace("/", Path.DirectorySeparatorChar.ToString());
+                        absolutePath = absolutePath.Replace("/", Path.DirectorySeparatorChar.ToString());
 
-                            Runtime.PythonDLL = absolutePath;
-                        }
+                        Runtime.PythonDLL = absolutePath;
+
+                        PythonEngine.Initialize();
                     }
                     else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                     {
                         if (OS.IsDebugBuild())
                         {
                             Runtime.PythonDLL = ProjectSettings.GlobalizePath("res://python_dep/libpython3.11.so.1");
+                            PythonEngine.Initialize();
                         }
                         else
                         {
@@ -83,9 +73,10 @@ namespace BackEnd
                             absolutePath = absolutePath.Replace("/", Path.DirectorySeparatorChar.ToString());
 
                             Runtime.PythonDLL = absolutePath;
+
+                            PythonEngine.Initialize();
                         }
                     }
-                    PythonEngine.Initialize();
                 }
                 using (Py.GIL())
                 {

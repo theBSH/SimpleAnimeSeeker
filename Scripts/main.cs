@@ -41,12 +41,11 @@ public partial class main : Control
             List<Med> meds;
             if (debug)
             {
-                meds = new List<Med>();
-                GD.Print("your in debug!");
+                meds = Be.Search("debug");
             }
             else
             {
-                // Perform a search using the input text
+                //Perform a search using the input text
                 meds = Be.Search(inputText);
             }
 
@@ -54,7 +53,7 @@ public partial class main : Control
             grid.CustomMinimumSize = new Vector2(itemSizeX * 4, (MaxSlot / 4) * itemSizeY);
             PackedScene mediaScene = (PackedScene)GD.Load(media);
 
-            // Populate the grid with media instances
+            //Populate the grid with media instances
             foreach (Med med in meds)
             {
                 var mediaInstance = (MEDIA)mediaScene.Instantiate();
@@ -64,7 +63,7 @@ public partial class main : Control
         }
         else
         {
-            // Signal that there is no internet connection
+            //Signal that there is no internet connection
             EmitSignal(SignalName.noInternet);
         }
     }
