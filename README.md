@@ -1,6 +1,6 @@
-# SimpleAnimeFinder (SAS)
+# SimpleAnimeSeeker (SAS)
 
-SimpleAnimeFinder (SAS) is a lightweight and fun anime searching tool designed to help you discover your next favorite anime quickly. Whether you're a seasoned anime enthusiast or a casual viewer, SAS makes it easy to find information about your favorite anime series.
+SimpleAnimeSeeker (SAS) is a lightweight and fun anime searching tool designed to help you discover your next favorite anime quickly. Whether you're a seasoned anime enthusiast or a casual viewer, SAS makes it easy to find information about your favorite anime series.
 
 ## Features
 
